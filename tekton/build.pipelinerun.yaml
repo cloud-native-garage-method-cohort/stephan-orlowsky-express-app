@@ -1,0 +1,24 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: build-push-stephan-js-
+spec:
+  pipelineRef:
+    name: build-push-stephan-js
+  params:
+  - name: app-name
+    value: stephanjs
+  - name: source-repo
+    value: https://github.com/cloud-native-garage-method-cohort/stephan-orlowsky-express-app.git
+  - name: image-repo
+    value: quay.io/stephan_orlowsky/stephanjs
+  serviceAccountName: build-bot
+  workspaces:
+    - name: stephanjs
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi 
