@@ -14,7 +14,7 @@ spec:
     value: quay.io/stephan_orlowsky/stephanjs
   serviceAccountName: build-bot
   workspaces:
-    - name: stephanjs
+    - name: stephan-js
       volumeClaimTemplate:
         spec:
           accessModes:

@@ -52,12 +52,10 @@ spec:
       runAfter:
         - build
       taskRef:
-        name: kustomize
+        name: create-configuration
       params:
         - name: app-name
           value: "$(params.app-name)"
-        - name: app-namespace
-          value: "$(context.pipelineRun.namespace)"
         - name: source-repo
           value: "$(params.source-repo)"
         - name: commit
@@ -71,10 +69,10 @@ spec:
           workspace: stephan-js
     - name: deploy
       params:
-        - name: app-name
-          value: "$(params.app-name)"
         - name: app-namespace
           value: "$(context.pipelineRun.namespace)"
+        - name: manifest
+          value: .
       runAfter:
         - create-configuration
       taskRef:
