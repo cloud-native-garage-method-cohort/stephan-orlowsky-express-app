@@ -1,0 +1,30 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: build-push-stephan-js
+spec:
+  tasks:
+    - name: fetch
+      taskRef:
+        name: git-clone-v0-16-3
+        kind: ClusterTask
+      workspaces:
+        - name: output
+          workspace: stephan-js
+      params:
+        - name: url
+          value: https://github.com/cloud-native-garage-method-cohort/stephan-orlowsky-express-app.git
+    - name: build  
+      taskRef:
+        name: buildah
+        kind: ClusterTask
+      workspaces:
+        - name: source
+          workspace: stephan-js
+      params:
+      - name: IMAGE
+        value: quay.io/stephan_orlowsky/stephanjs:1
+      runAfter:
+      - fetch
+  workspaces:
+    - name: stephan-js
