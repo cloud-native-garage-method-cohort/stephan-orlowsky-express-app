@@ -22,3 +22,11 @@ spec:
           resources:
             requests:
               storage: 1Gi 
+    - name: manifest-ws
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi 

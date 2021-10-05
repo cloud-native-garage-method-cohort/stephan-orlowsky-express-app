@@ -47,7 +47,7 @@ spec:
       - name: IMAGE
         value: "$(params.image-repo):$(tasks.fetch.results.commit)"
       runAfter:
-      - run-tests
+      - fetch
     - name: create-configuration
       runAfter:
         - build
@@ -72,7 +72,7 @@ spec:
         - name: app-namespace
           value: "$(context.pipelineRun.namespace)"
         - name: manifest
-          value: .
+          value: "$(tasks.create-configuration.results.manifest)"
       runAfter:
         - create-configuration
       taskRef:
