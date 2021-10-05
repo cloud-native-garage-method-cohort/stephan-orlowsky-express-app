@@ -50,7 +50,7 @@ spec:
       - fetch
     - name: create-configuration
       runAfter:
-        - build
+        - fetch
       taskRef:
         name: create-configuration
       params:
@@ -75,6 +75,7 @@ spec:
           value: "$(tasks.create-configuration.results.manifest)"
       runAfter:
         - create-configuration
+        - build
       taskRef:
         name: deploy
       workspaces:

@@ -3,8 +3,6 @@ kind: Route
 metadata:
   name: stephanjs
 spec:
-  tls:
-    termination: edge
   to:
     name: stephanjs
     kind: Service
