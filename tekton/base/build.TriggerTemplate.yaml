@@ -1,0 +1,31 @@
+---
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: vcs-trigger
+spec:
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: stephan-js-
+      spec:
+        pipelineRef:
+          name: build-push-stephan-js
+        serviceAccountName: build-bot
+        params:
+            - name: app-name
+              value: stephanjs
+            - name: source-repo
+              value: https://github.com/cloud-native-garage-method-cohort/stephan-orlowsky-express-app.git
+            - name: image-repo
+              value: quay.io/stephan_orlowsky/stephanjs
+        workspaces:
+          - name: stephan-js
+            volumeClaimTemplate:
+              spec:
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 1Gi
